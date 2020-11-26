@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import SDK from '@uphold/uphold-sdk-javascript';
 
 
-const useTicker = (currency) => {
+const useTicker = () => {
   
   const [currentRates, setCurrentRates] = useState([]);
+  const [currentCurrency, setCurrentCurrency] = useState();
 
   useEffect(() => {
     const sdk = new SDK({
@@ -14,13 +15,13 @@ const useTicker = (currency) => {
       clientSecret: process.env.REACT_APP_UPHOLD_CLIENT_SECRET
     });
   
-    sdk.getTicker(currency).then(response => {
-      setCurrentRates(response)
+    sdk.getTicker(currentCurrency).then(response => {
+      setCurrentRates(response);
     })
 
-  },[]);
+  },[currentCurrency]);
 
-  return currentRates;
+  return [currentRates, setCurrentCurrency];
 
 }
 
