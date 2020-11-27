@@ -1,3 +1,5 @@
+import styled from 'styled-components';
+import Conversion from './Conversion';
 
 const ListConversions = ({ baseCurrency, usedCurrencies, rates, amount,  }) => {
   //Shows only conversions to currencies of env file
@@ -6,12 +8,24 @@ const ListConversions = ({ baseCurrency, usedCurrencies, rates, amount,  }) => {
   const ratesToShow = rates.filter(rate => pairsToShow.some(item => item === rate.pair));
 
   return (
-    <>
-      <ul>
-        {ratesToShow.map(rate => <li key={rate.pair}>{(rate.ask * amount).toFixed(2)} | {rate.ask} | {rate.pair}</li>)}
-      </ul>
-    </>
+    <Container>
+      {ratesToShow.map(rate => {
+          return (
+            <List key={rate.pair}>
+              <Conversion amount={amount} rate={rate} />
+            </List>
+          )
+      })}
+    </Container>
   )
 }
+
+const Container = styled.ul`
+  width: 100%;
+`
+
+const List = styled.li`
+  list-style: none;
+`
 
 export default ListConversions;
