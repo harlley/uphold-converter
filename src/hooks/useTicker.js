@@ -15,7 +15,7 @@ const useTicker = ({ selectedCurrency, inputedAmount }) => {
         localStorage.setItem('selectedCurrency', selectedCurrency);
         localStorage.setItem('inputedAmount', inputedAmount);
       })  
-    }, 5000);
+    }, 0);
 
     return () => {
       clearTimeout(timeoutID);
