@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import SDK from '@uphold/uphold-sdk-javascript';
 
 
-const useTicker = () => {
+const useTicker = ({ selectedCurrency, inputedAmount }) => {
   
   const [currentRates, setCurrentRates] = useState([]);
   const [currentCurrency, setCurrentCurrency] = useState();
@@ -17,6 +17,8 @@ const useTicker = () => {
   
     sdk.getTicker(currentCurrency).then(response => {
       setCurrentRates(response);
+      localStorage.setItem('selectedCurrency', selectedCurrency);
+      localStorage.setItem('inputedAmount', inputedAmount);
     })
 
   },[currentCurrency]);
