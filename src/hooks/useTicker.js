@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import SDK from '@uphold/uphold-sdk-javascript';
-
+import uphold from '../services/uphold';
 
 const useTicker = ({ selectedCurrency, inputedAmount }) => {
   
@@ -8,18 +7,19 @@ const useTicker = ({ selectedCurrency, inputedAmount }) => {
   const [currentCurrency, setCurrentCurrency] = useState();
 
   useEffect(() => {
-    const sdk = new SDK({
-      // In the real world this call with client secret must be on the server
-      baseUrl: process.env.REACT_APP_UPHOLD_BASE_URL,
-      clientId: process.env.REACT_APP_UPHOLD_CLIENT_ID,
-      clientSecret: process.env.REACT_APP_UPHOLD_CLIENT_SECRET
-    });
-  
-    sdk.getTicker(currentCurrency).then(response => {
-      setCurrentRates(response);
-      localStorage.setItem('selectedCurrency', selectedCurrency);
-      localStorage.setItem('inputedAmount', inputedAmount);
-    })
+    
+    const timeoutID = setTimeout(() => {
+      uphold.getTicker(currentCurrency).then(response => {
+        setCurrentRates(response);
+        localStorage.setItem('lastUpdate', new Date());
+        localStorage.setItem('selectedCurrency', selectedCurrency);
+        localStorage.setItem('inputedAmount', inputedAmount);
+      })  
+    }, 5000);
+
+    return () => {
+      clearTimeout(timeoutID);
+    };
 
   },[currentCurrency]);
 

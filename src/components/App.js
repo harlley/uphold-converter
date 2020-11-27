@@ -9,10 +9,8 @@ const App = () => {
     selectedCurrency: currency,
     inputedAmount: amount
   });
-
   
   const rates = currentRates.filter(val => !val.pair.includes('-')).slice(0,10);
-  console.log('currentRates', rates);
 
   const handleChange = (e) => {
     setCurrency(e.target.value);
