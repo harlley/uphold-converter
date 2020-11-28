@@ -21,6 +21,8 @@ const ListConversions = ({ baseCurrency, usedCurrencies, rates, amount,  }) => {
 }
 
 const Container = styled.ul`
+  margin: 0;
+  padding: 0;
   width: 100%;
 `
 

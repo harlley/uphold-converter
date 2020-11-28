@@ -3,6 +3,7 @@ import useTicker from '../hooks/useTicker';
 import ListConversions from './ListConversions';
 import styled from 'styled-components';
 
+
 /*
 TODO ***********
 
@@ -56,14 +57,21 @@ const App = () => {
 
 
 const Headline = styled.h1`
-  color: blue;
+  font-size: 2rem;
+  color: rgb(10, 43, 40);
+  font-weight: 900;
+
 `
 
 const CallToAction = styled.p`
   text-align: center;
+  color: rgb(113, 129, 149);
+  font-weight: 100;
+
 `
 
 const AppContainer = styled.div`
+  margin-top: 100px;
   width: 400px;
   border: 1px solid #eee;
   display: flex;
