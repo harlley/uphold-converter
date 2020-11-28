@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import useTicker from '../hooks/useTicker';
 import ListConversions from './ListConversions';
 import styled from 'styled-components';
-
+import Select from "react-select";
 
 /*
 TODO ***********
@@ -17,7 +17,16 @@ TODO ***********
 
 */
 
+// const options = [
+//   { value: 'chocolate', label: 'Chocolate' },
+//   { value: 'strawberry', label: 'Strawberry' },
+//   { value: 'vanilla', label: 'Vanilla' },
+// ];
 
+
+const colourStyles = {
+  control: styles => ({ ...styles, borderRadius: 99, width: 200 }),
+};
 
 const App = () => {
   const [currency, setCurrency] = useState(localStorage.getItem('selectedCurrency') || 'USD');
@@ -26,17 +35,24 @@ const App = () => {
     selectedCurrency: currency,
     inputedAmount: amount
   });
-  
+
   const rates = currentRates.filter(val => !val.pair.includes('-')); // Ignore stocks and show only currencies
 
   const handleChange = (e) => {
-    setCurrency(e.target.value);
-    setCurrentCurrency(e.target.value);
+    console.log('handleChange', e);
+    setCurrency(e.value);
+    setCurrentCurrency(e.value);
   }
 
   const usedCurrencies = process.env.REACT_APP_USED_CURRENCIES.split('|');
 
-  
+  const options = usedCurrencies.map(val => { 
+    return { 
+      value: val,
+      label: <div><img src={require(`../images/${val}.png`).default} width="15" height="15" alt="" />{val}</div> 
+    };
+  });
+
 
   return (
     <AppContainer>
@@ -44,9 +60,16 @@ const App = () => {
       <CallToAction>Receive competitive and transparent pricing with no hidden spreads. Se how we compare.</CallToAction>      
       <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)} />
 
-      <select defaultValue={currency} onChange={handleChange}>
+      {/* <select defaultValue={currency} onChange={handleChange}>
         {usedCurrencies.map(item => <option key={item}>{item}</option>)}
-      </select>
+      </select> */}
+
+      <Select
+        defaultValue={ { value: currency, label: <div><img src={require(`../images/${currency}.png`).default} width="15" height="15" alt="" />{currency}</div> }}
+        onChange={handleChange}
+        options={options}
+        styles={colourStyles}        
+      />      
           
       
       <ListConversions baseCurrency={currency} usedCurrencies={usedCurrencies} amount={amount} rates={rates} />
