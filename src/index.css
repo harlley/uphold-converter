@@ -1,8 +1,14 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css');
 
+* {
+  box-sizing: border-box;
+}
+
+
 body {
   font-family: 'Arial', sans-serif;
   -webkit-font-smoothing: antialiased;
   display: grid;
   place-items: center;
 }
+
