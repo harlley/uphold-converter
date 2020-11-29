@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import uphold from '../services/uphold';
+import { uphold } from '../services/uphold';
 
-const useTicker = ({ selectedCurrency, inputedAmount }) => {
+export const useTicker = ({ selectedCurrency, inputedAmount }) => {
   
   const [currentRates, setCurrentRates] = useState([]);
   const [currentCurrency, setCurrentCurrency] = useState();
@@ -26,5 +26,3 @@ const useTicker = ({ selectedCurrency, inputedAmount }) => {
   return [currentRates, setCurrentCurrency];
 
 }
-
-export default useTicker;

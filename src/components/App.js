@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import useTicker from '../hooks/useTicker';
-import ListConversions from './ListConversions';
+import { useTicker } from '../hooks/useTicker';
+import { ListConversions } from './ListConversions';
 import styled from 'styled-components';
 import { SelectCurrency } from './SelectCurrency';
 
@@ -17,9 +17,28 @@ TODO ***********
 
 */
 
+const Headline = styled.h1`
+  font-size: 2rem;
+  color: rgb(10, 43, 40);
+  font-weight: 900;
+`
 
+const CallToAction = styled.p`
+  text-align: center;
+  color: rgb(113, 129, 149);
+  font-weight: 100;
+`
 
-const App = () => {
+const AppContainer = styled.div`
+  margin-top: 100px;
+  width: 400px;
+  border: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+export const App = () => {
   const [currency, setCurrency] = useState(localStorage.getItem('selectedCurrency') || 'USD');
   const [amount, setAmount] = useState(localStorage.getItem('inputedAmount') || 100);
   const [currentRates, setCurrentCurrency] = useTicker({ 
@@ -39,41 +58,10 @@ const App = () => {
 
   return (
     <AppContainer>
-      <Headline>Currency Converter</Headline>
-      
+      <Headline>Currency Converter</Headline>      
       <CallToAction>Receive competitive and transparent pricing with no hidden spreads. Se how we compare.</CallToAction>      
-      
-
       <SelectCurrency currency={currency} usedCurrencies={usedCurrencies} onChange={handleChange} amount={amount} setAmount={setAmount} />
-                
       <ListConversions baseCurrency={currency} usedCurrencies={usedCurrencies} amount={amount} rates={rates} />
-
     </AppContainer>
   );
 }
-
-
-const Headline = styled.h1`
-  font-size: 2rem;
-  color: rgb(10, 43, 40);
-  font-weight: 900;
-`
-
-const CallToAction = styled.p`
-  text-align: center;
-  color: rgb(113, 129, 149);
-  font-weight: 100;
-
-`
-
-const AppContainer = styled.div`
-  margin-top: 100px;
-  width: 400px;
-  border: 1px solid #eee;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-`
-
-export default App;
