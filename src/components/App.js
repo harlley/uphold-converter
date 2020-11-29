@@ -14,6 +14,7 @@ TODO ***********
 [ ] Add cypress e2e tests (Optional)
 [ ] Add unit tests (Optional)
 [ ] Setup linting (Optional)
+[ ] Tratar excessões
 
 */
 

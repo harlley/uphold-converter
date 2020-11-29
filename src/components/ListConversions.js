@@ -11,7 +11,14 @@ const List = styled.li`
   list-style: none;
 `
 
+
 export const ListConversions = ({ baseCurrency, usedCurrencies, rates, amount,  }) => {
+
+  if (rates.length === 0) {
+    return <h1>Enter a amount to check the rates.</h1>;
+  }
+
+
   //Shows only conversions to currencies of env file
   const currenciesToShow = usedCurrencies.filter(currency => currency !== baseCurrency);
   const pairsToShow = currenciesToShow.map(currency => `${baseCurrency}${currency}`);
