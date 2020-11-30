@@ -7,7 +7,6 @@ import { SelectCurrency } from './SelectCurrency';
 /*
 TODO ***********
 
-[ ] Default amount is 0.00
 [ ] Improve cache using last update date
 [ ] Tratar excessões
 
@@ -46,7 +45,7 @@ const AppContainer = styled.div`
 
 export const App = () => {
   const [currency, setCurrency] = useState(localStorage.getItem('selectedCurrency') || 'USD');
-  const [amount, setAmount] = useState(localStorage.getItem('inputedAmount') || 0);
+  const [amount, setAmount] = useState(parseFloat(localStorage.getItem('inputedAmount')));
   const [currentRates, setCurrentCurrency] = useTicker({ 
     selectedCurrency: currency,
     inputedAmount: amount
@@ -57,7 +56,6 @@ export const App = () => {
   const usedCurrencies = process.env.REACT_APP_USED_CURRENCIES.split('|');
 
   const handleChange = (e) => {
-    console.log('handleChange', e);
     setCurrency(e.value);
     setCurrentCurrency(e.value);
   }

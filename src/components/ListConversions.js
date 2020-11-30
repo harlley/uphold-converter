@@ -13,7 +13,7 @@ const List = styled.li`
 `
 
 
-export const ListConversions = ({ baseCurrency, usedCurrencies, rates, amount,  }) => {
+export const ListConversions = ({ baseCurrency, usedCurrencies, rates, amount }) => {
 
   if (rates.length === 0) {
     return <h1>Enter a amount to check the rates.</h1>;

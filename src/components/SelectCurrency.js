@@ -1,8 +1,9 @@
 import Select, { components } from "react-select";
 import styled from 'styled-components';
 import { FlagCurrency } from './FlagCurrency';
+import NumberFormat from 'react-number-format';
 
-const Input = styled.input`
+const Input = styled(NumberFormat)`
   background-color: transparent;
   width: 200px;
   border: none;
@@ -58,7 +59,7 @@ export const SelectCurrency = ({ currency, usedCurrencies, onChange, amount, set
   
   return (
     <Container>
-      <Input type="text" value={amount} onChange={(e) => setAmount(e.target.value)} />
+      <Input thousandSeparator={true} value={amount} onValueChange={(item) => setAmount(item.value)} placeholder="0.00"/>
       <Select
         defaultValue={{ value: currency, label: <FlagCurrency value={currency}/> }}
         onChange={onChange}

@@ -31,7 +31,7 @@ export const useTicker = ({ selectedCurrency, inputedAmount }) => {
       clearTimeout(timeoutID);
     };
 
-  },[currentCurrency, selectedCurrency]);
+  },[currentCurrency, selectedCurrency, inputedAmount]);
 
   return [currentRates, setCurrentCurrency];
 
