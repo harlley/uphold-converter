@@ -12,10 +12,9 @@ const List = styled.li`
   list-style: none;
 `
 
-
 export const ListConversions = ({ baseCurrency, usedCurrencies, rates, amount }) => {
 
-  //Shows only conversions to currencies of env file
+  // Define the pairs and rates to be showed
   const currenciesToShow = usedCurrencies.filter(currency => currency !== baseCurrency);
   const pairsToShow = currenciesToShow.map(currency => `${baseCurrency}${currency}`);
   const ratesToShow = rates.filter(rate => pairsToShow.some(item => item === rate.pair));

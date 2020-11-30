@@ -51,6 +51,7 @@ export const App = () => {
 
   const rates = currentRates.filter(val => !val.pair.includes('-')); // Ignore stocks and show only currencies
 
+  //Shows only conversions to currencies of env file
   const usedCurrencies = process.env.REACT_APP_USED_CURRENCIES.split('|');
 
   const handleChange = (e) => {

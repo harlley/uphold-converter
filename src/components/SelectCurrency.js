@@ -31,7 +31,7 @@ const selectStyles = {
   menu: styles => ({ ...styles, marginTop: 4, borderRadius: 6 }),
 };
 
-
+// Icon to customize react-select component
 const DropdownIcon = () => {
   return (
     <svg height="5" viewBox="0 0 8 5" width="8">
@@ -43,6 +43,7 @@ const DropdownIcon = () => {
   );
 };
 
+// Change the default dropdown arrow
 const DropdownIndicator = props => {
   return (
     <components.DropdownIndicator {...props}>

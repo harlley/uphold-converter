@@ -8,8 +8,8 @@ export const useTicker = ({ selectedCurrency, inputedAmount }) => {
   const [currentCurrency, setCurrentCurrency] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const msDebounce = 1000;
-  const minExpirationCache = 1;
+  const msDebounce = 1000; // Debounce in miliseconds to avoid overload on server
+  const minExpirationCache = 1; // Time of expiration os the cache on localstorage in minutes
   
   useEffect(() => {
 
@@ -38,7 +38,6 @@ export const useTicker = ({ selectedCurrency, inputedAmount }) => {
       }, msDebounce);
     }
 
-  
     return () => {
       clearTimeout(timeoutID);
     };

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { FlagCurrency } from './FlagCurrency';
 
-
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
@@ -27,7 +26,7 @@ const CurrencyContainer = styled.div`
 
 export const Conversion = ({ amount, rate }) => {
   const total = (rate.ask * amount).toFixed(2);
-  const currency = rate.pair.slice(3, 6);
+  const currency = rate.pair.slice(3, 6); // get the last 3 letters referent the quote currency
   return (
     <Container>
       <Total>{total}</Total>
