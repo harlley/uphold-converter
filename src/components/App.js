@@ -4,18 +4,6 @@ import { ListConversions } from './ListConversions';
 import styled from 'styled-components';
 import { SelectCurrency } from './SelectCurrency';
 
-/*
-TODO ***********
-
-[ ] Improve cache using last update date
-[ ] Tratar excessões
-
-[ ] Add cypress e2e tests (Optional)
-[ ] Add unit tests (Optional)
-[ ] Setup linting (Optional)
-
-*/
-
 const Headline = styled.h1`
   font-size: 2rem;
   color: rgb(10, 43, 40);
@@ -54,8 +42,8 @@ const Instructions = ({ isLoading, error, amount }) => {
 
 
 export const App = () => {
-  const [currency, setCurrency] = useState(localStorage.getItem('selectedCurrency') || 'USD');
-  const [amount, setAmount] = useState(localStorage.getItem('inputedAmount') || '');
+  const [currency, setCurrency] = useState('USD');
+  const [amount, setAmount] = useState('');
   const [currentRates, setCurrentCurrency, isLoading, error] = useTicker({ 
     selectedCurrency: currency,
     inputedAmount: amount

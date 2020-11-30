@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { uphold } from '../services/uphold';
+import moment from 'moment';
 
 export const useTicker = ({ selectedCurrency, inputedAmount }) => {
   
@@ -7,8 +8,17 @@ export const useTicker = ({ selectedCurrency, inputedAmount }) => {
   const [currentCurrency, setCurrentCurrency] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const msDebounce = 1000;
+  const minExpirationCache = 1;
   
   useEffect(() => {
+
+    // Clear cache after 1 minute
+    if ( moment() > moment(new Date(localStorage.getItem('expireCache'))) ) {
+      localStorage.removeItem('rates');
+      localStorage.removeItem('expireCache');
+      localStorage.removeItem('selectedCurrency');
+    }
 
     let timeoutID = 0;
     
@@ -21,16 +31,14 @@ export const useTicker = ({ selectedCurrency, inputedAmount }) => {
         uphold.getTicker(currentCurrency).then(response => {
           setCurrentRates(response);
           localStorage.setItem('rates', JSON.stringify(response));
-          localStorage.setItem('lastUpdate', new Date());
+          localStorage.setItem('expireCache', moment().add(minExpirationCache, 'minutes'));
           localStorage.setItem('selectedCurrency', selectedCurrency);
-          localStorage.setItem('inputedAmount', inputedAmount);
         }).catch(error => setError(error));
         setIsLoading(false);
-      }, 3000);
+      }, msDebounce);
     }
 
-    
-
+  
     return () => {
       clearTimeout(timeoutID);
     };
