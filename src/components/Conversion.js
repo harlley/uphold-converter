@@ -6,24 +6,23 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  background-color: #eee;
   margin-bottom: 2px;
 `
 
 const Total = styled.div`
   margin-left: 10px;
   font-size: 1.2rem; 
-  background-color: #666;
-  color: white;
+  color: rgb(46, 57, 73);
+  font-weight: bold;
   display: flex; 
   align-items: center;
 `
 const CurrencyContainer = styled.div`
-  background-color: #666;
-  color: white;
+  color: rgb(46, 57, 73);
   display: flex;
   align-items: center;
   min-width: 100px;
+  padding-left: 5px;
 `
 
 export const Conversion = ({ amount, rate }) => {

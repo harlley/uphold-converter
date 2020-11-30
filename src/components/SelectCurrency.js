@@ -6,7 +6,7 @@ const Input = styled.input`
   background-color: transparent;
   width: 200px;
   border: none;
-  color: white;
+  color: rgb(46, 57, 73);
   font-size: 2rem;
   outline: none;
   padding-left: 5px;
@@ -16,7 +16,7 @@ const Container = styled.div`
   width: 100%;
   padding: 15px;
   display: flex;
-  background-color: blue/*rgb(243, 247, 252)*/;
+  background-color: rgb(243, 247, 252);
   justify-content: space-between;
   border-radius: 12px;
 `
@@ -25,9 +25,9 @@ const Container = styled.div`
 const selectStyles = {
   control: styles => ({ ...styles, borderRadius: 99, width: 100, height: '100%', border: 'none' }),
   indicatorSeparator: styles => ({ ...styles, display: 'none' }),
-  singleValue: styles => ({ ...styles, backgroundColor: '#666', display: 'flex', alignItems: 'center', color: 'white', justifyContent: 'center', verticalAlign: 'center' }),
+  singleValue: styles => ({ ...styles, display: 'flex', alignItems: 'center', color: 'rgb(46, 57, 73)', justifyContent: 'center', verticalAlign: 'center' }),
   option: styles => ({ ...styles, marginBottom: 1, display: 'flex', alignItem: 'center' }),
-  menu: styles => ({ ...styles, marginTop: 2, borderRadius: 6 }),
+  menu: styles => ({ ...styles, marginTop: 4, borderRadius: 6 }),
 };
 
 
@@ -60,10 +60,6 @@ export const SelectCurrency = ({ currency, usedCurrencies, onChange, amount, set
     <Container>
       <Input type="text" value={amount} onChange={(e) => setAmount(e.target.value)} />
       <Select
-        defaultMenuIsOpen={true}
-        menuIsOpen={true}
-        closeMenuOnSelect={false}
-        closeMenuOnScroll={false}
         defaultValue={{ value: currency, label: <FlagCurrency value={currency}/> }}
         onChange={onChange}
         options={options}

@@ -21,19 +21,24 @@ TODO ***********
 const Headline = styled.h1`
   font-size: 2rem;
   color: rgb(10, 43, 40);
-  font-weight: 900;
+  margin-bottom: 10px;
+
 `
 
 const CallToAction = styled.p`
   text-align: center;
   color: rgb(113, 129, 149);
-  font-weight: 100;
+`
+
+const Instructions = styled.p`
+  text-align: center;
+  color: rgb(113, 129, 149);
+  font-size: 0.8rem;
 `
 
 const AppContainer = styled.div`
   margin-top: 100px;
   width: 400px;
-  border: 1px solid #eee;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -60,9 +65,13 @@ export const App = () => {
   return (
     <AppContainer>
       <Headline>Currency Converter</Headline>      
-      <CallToAction>Receive competitive and transparent pricing with no hidden spreads. Se how we compare.</CallToAction>      
-      <SelectCurrency currency={currency} usedCurrencies={usedCurrencies} onChange={handleChange} amount={amount} setAmount={setAmount} />
-      <ListConversions baseCurrency={currency} usedCurrencies={usedCurrencies} amount={amount} rates={rates} />
+      <CallToAction>Receive competitive and transparent pricing with no hidden spreads. Se how we compare.</CallToAction>
+        <SelectCurrency currency={currency} usedCurrencies={usedCurrencies} onChange={handleChange} amount={amount} setAmount={setAmount} />
+        {
+          amount > 0 ? 
+          <ListConversions baseCurrency={currency} usedCurrencies={usedCurrencies} amount={amount} rates={rates} />
+          : <Instructions>Enter an amount to check the rates.</Instructions>
+        }
     </AppContainer>
   );
 }
