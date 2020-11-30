@@ -5,7 +5,9 @@ export const useTicker = ({ selectedCurrency, inputedAmount }) => {
   
   const [currentRates, setCurrentRates] = useState([]);
   const [currentCurrency, setCurrentCurrency] = useState();
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  
   useEffect(() => {
 
     let timeoutID = 0;
@@ -14,6 +16,7 @@ export const useTicker = ({ selectedCurrency, inputedAmount }) => {
       setCurrentRates(JSON.parse(localStorage.getItem('rates')));
     }
     else {
+      setIsLoading(true);
       timeoutID = setTimeout(() => {
         uphold.getTicker(currentCurrency).then(response => {
           setCurrentRates(response);
@@ -21,8 +24,9 @@ export const useTicker = ({ selectedCurrency, inputedAmount }) => {
           localStorage.setItem('lastUpdate', new Date());
           localStorage.setItem('selectedCurrency', selectedCurrency);
           localStorage.setItem('inputedAmount', inputedAmount);
-        })  
-      }, 0);  
+        }).catch(error => setError(error));
+        setIsLoading(false);
+      }, 3000);
     }
 
     
@@ -33,6 +37,6 @@ export const useTicker = ({ selectedCurrency, inputedAmount }) => {
 
   },[currentCurrency, selectedCurrency, inputedAmount]);
 
-  return [currentRates, setCurrentCurrency];
+  return [currentRates, setCurrentCurrency, isLoading, error];
 
 }

@@ -28,7 +28,7 @@ const CallToAction = styled.p`
   margin-bottom: 30px;
 `
 
-const Instructions = styled.p`
+const Message = styled.p`
   text-align: center;
   color: rgb(113, 129, 149);
   font-size: 0.8rem;
@@ -43,10 +43,20 @@ const AppContainer = styled.div`
   align-items: center;
 `
 
+
+const Instructions = ({ isLoading, error, amount }) => {
+  if (isLoading) return <Message>Loading...</Message>;
+  if (error) return <Message><span style={{color: 'red'}}>It is not working now :( Please come back later.</span></Message>;
+  if (!amount > 0) return <Message>Enter an amount to check the rates.</Message>;
+  return <></>;
+}
+
+
+
 export const App = () => {
   const [currency, setCurrency] = useState(localStorage.getItem('selectedCurrency') || 'USD');
-  const [amount, setAmount] = useState(parseFloat(localStorage.getItem('inputedAmount')));
-  const [currentRates, setCurrentCurrency] = useTicker({ 
+  const [amount, setAmount] = useState(localStorage.getItem('inputedAmount') || '');
+  const [currentRates, setCurrentCurrency, isLoading, error] = useTicker({ 
     selectedCurrency: currency,
     inputedAmount: amount
   });
@@ -65,12 +75,8 @@ export const App = () => {
       <Headline>Currency Converter</Headline>      
       <CallToAction>Receive competitive and transparent pricing with no hidden spreads. Se how we compare.</CallToAction>
         <SelectCurrency currency={currency} usedCurrencies={usedCurrencies} onChange={handleChange} amount={amount} setAmount={setAmount} />
-        {
-          amount > 0 ? 
-          <ListConversions baseCurrency={currency} usedCurrencies={usedCurrencies} amount={amount} rates={rates} />
-          :
-          <Instructions>Enter an amount to check the rates.</Instructions>
-        }
+        { amount > 0 && !isLoading ? <ListConversions baseCurrency={currency} usedCurrencies={usedCurrencies} amount={amount} rates={rates} /> : null }
+        <Instructions isLoading={isLoading} error={error} amount={amount} />
     </AppContainer>
   );
 }
