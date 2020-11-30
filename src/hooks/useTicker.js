@@ -2,9 +2,6 @@ import { useState, useEffect } from 'react';
 import { uphold } from '../services/uphold';
 
 export const useTicker = ({ selectedCurrency, inputedAmount }) => {
-
-  console.log('selectedCurrency', selectedCurrency);
-  console.log('selectedCurrencyLocal', localStorage.getItem('selectedCurrency'));
   
   const [currentRates, setCurrentRates] = useState([]);
   const [currentCurrency, setCurrentCurrency] = useState();
@@ -15,7 +12,6 @@ export const useTicker = ({ selectedCurrency, inputedAmount }) => {
     
     if (localStorage.getItem('rates') && selectedCurrency === localStorage.getItem('selectedCurrency')) {
       setCurrentRates(JSON.parse(localStorage.getItem('rates')));
-      console.log('entrou');
     }
     else {
       timeoutID = setTimeout(() => {

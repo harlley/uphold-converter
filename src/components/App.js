@@ -7,14 +7,13 @@ import { SelectCurrency } from './SelectCurrency';
 /*
 TODO ***********
 
-[ ] CSS Styles
-[ ] Improve cache using last update date
 [ ] Default amount is 0.00
-[ ] Show list conversions only after some amount is inserted
+[ ] Improve cache using last update date
+[ ] Tratar excessões
+
 [ ] Add cypress e2e tests (Optional)
 [ ] Add unit tests (Optional)
 [ ] Setup linting (Optional)
-[ ] Tratar excessões
 
 */
 
@@ -22,18 +21,19 @@ const Headline = styled.h1`
   font-size: 2rem;
   color: rgb(10, 43, 40);
   margin-bottom: 10px;
-
 `
 
 const CallToAction = styled.p`
   text-align: center;
   color: rgb(113, 129, 149);
+  margin-bottom: 30px;
 `
 
 const Instructions = styled.p`
   text-align: center;
   color: rgb(113, 129, 149);
   font-size: 0.8rem;
+  margin-top: 20px;
 `
 
 const AppContainer = styled.div`
@@ -46,7 +46,7 @@ const AppContainer = styled.div`
 
 export const App = () => {
   const [currency, setCurrency] = useState(localStorage.getItem('selectedCurrency') || 'USD');
-  const [amount, setAmount] = useState(localStorage.getItem('inputedAmount') || 100);
+  const [amount, setAmount] = useState(localStorage.getItem('inputedAmount') || 0);
   const [currentRates, setCurrentCurrency] = useTicker({ 
     selectedCurrency: currency,
     inputedAmount: amount
@@ -70,7 +70,8 @@ export const App = () => {
         {
           amount > 0 ? 
           <ListConversions baseCurrency={currency} usedCurrencies={usedCurrencies} amount={amount} rates={rates} />
-          : <Instructions>Enter an amount to check the rates.</Instructions>
+          :
+          <Instructions>Enter an amount to check the rates.</Instructions>
         }
     </AppContainer>
   );
